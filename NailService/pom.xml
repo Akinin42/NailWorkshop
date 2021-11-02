@@ -5,17 +5,18 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.5.3</version>
+		<relativePath/>
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>akinin.igor</groupId>
 	<artifactId>NailService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>NailService</name>
+	<name>NailWorkshop</name>
 	<description>Nails Service</description>
 	<properties>
 		<java.version>1.8</java.version>
+        <maven.compiler.target>1.8</maven.compiler.target>        
 	</properties>
 	<dependencies>
 		<dependency>
