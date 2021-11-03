@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>NailWorkshop</name>
-	<description>Nails Service</description>
+	<description>Nails Workshop</description>
 	<properties>
 		<java.version>1.8</java.version>
         <maven.compiler.target>1.8</maven.compiler.target>        
