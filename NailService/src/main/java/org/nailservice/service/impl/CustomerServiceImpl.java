@@ -36,4 +36,15 @@ public class CustomerServiceImpl implements CustomerService {
     private boolean existCustomer(Customer customer) {
         return !customerDao.findByPhone(customer.getPhone()).equals(Optional.empty());
     }
+
+    @Override
+    public Customer editCustomer(Customer customer) {
+        customerDao.save(customer);
+        return customer;
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        customerDao.deleteById(id);        
+    }
 }

@@ -9,4 +9,8 @@ public interface CustomerService {
     List<Customer> findAllCustomers();
     
     Customer createCustomer(Customer customer);
+    
+    Customer editCustomer(Customer customer);
+    
+    void deleteById(Integer id);
 }
