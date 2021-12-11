@@ -2,15 +2,16 @@ package org.nailservice.service;
 
 import java.util.List;
 
+import org.nailservice.dto.CustomerDto;
 import org.nailservice.entity.Customer;
 
 public interface CustomerService {
     
     List<Customer> findAllCustomers();
     
-    Customer createCustomer(Customer customer);
+    void createCustomer(CustomerDto customer);
     
-    Customer editCustomer(Customer customer);
+    void editCustomer(CustomerDto customer);
     
     void deleteById(Integer id);
 }

@@ -12,7 +12,7 @@ import lombok.Data;
 @Entity
 @Table(name = "nailservices")
 @Data
-public class NailService {
+public class NailOperation {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

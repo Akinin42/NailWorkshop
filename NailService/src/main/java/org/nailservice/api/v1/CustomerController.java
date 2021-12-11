@@ -1,7 +1,10 @@
-package org.nailservice.controller;
+package org.nailservice.api.v1;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.nailservice.dto.CustomerDto;
 import org.nailservice.entity.Customer;
 import org.nailservice.service.CustomerService;
 import org.springframework.http.HttpStatus;
@@ -19,30 +22,28 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/customers")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
-    
+
     @GetMapping
     public List<Customer> findAll() {
         return customerService.findAllCustomers();
     }
-    
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer add(@RequestBody Customer customer) {
-        return customerService.createCustomer(customer);
+    public void add(@Valid @RequestBody CustomerDto customer) {
+        customerService.createCustomer(customer);
     }
-    
+
     @PutMapping("{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Customer update(@RequestBody Customer customer) {
-        return customerService.editCustomer(customer);
+    public void update(@Valid @RequestBody CustomerDto customer) {
+        customerService.editCustomer(customer);
     }
-    
+
     @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") Integer id) {
         customerService.deleteById(id);
     }

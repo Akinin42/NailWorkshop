@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.nailservice.dao.CustomerDao;
+import org.nailservice.dto.CustomerDto;
 import org.nailservice.entity.Customer;
 import org.nailservice.exception.EntityAlreadyExistException;
 import org.nailservice.service.CustomerService;
@@ -25,26 +26,34 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer createCustomer(Customer customer) {
+    public void createCustomer(CustomerDto customerDto) {
+        Customer customer = mapDtoToEntity(customerDto);
         if (existCustomer(customer)) {
             throw new EntityAlreadyExistException("customerexist");
         }
         customerDao.save(customer);
-        return customer;
     }
 
     private boolean existCustomer(Customer customer) {
         return !customerDao.findByPhone(customer.getPhone()).equals(Optional.empty());
     }
 
-    @Override
-    public Customer editCustomer(Customer customer) {
-        customerDao.save(customer);
+    private Customer mapDtoToEntity(CustomerDto customerDto) {
+        Customer customer = new Customer();
+        customer.setId(customerDto.getId());
+        customer.setName(customerDto.getName());
+        customer.setPhone(customerDto.getPhone());
         return customer;
     }
 
     @Override
+    public void editCustomer(CustomerDto customerDto) {
+        Customer customer = mapDtoToEntity(customerDto);
+        customerDao.save(customer);
+    }
+
+    @Override
     public void deleteById(Integer id) {
-        customerDao.deleteById(id);        
+        customerDao.deleteById(id);
     }
 }
