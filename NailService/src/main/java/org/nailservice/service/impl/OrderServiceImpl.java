@@ -1,11 +1,12 @@
 package org.nailservice.service.impl;
 
 import org.nailservice.dao.OrderDao;
-import org.nailservice.dto.CustomerDto;
 import org.nailservice.dto.OrderDto;
 import org.nailservice.entity.Order;
 import org.nailservice.service.CustomerService;
 import org.nailservice.service.OrderService;
+import org.nailservice.service.mapper.OrderMapper;
+import org.nailservice.service.validator.OrderValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,25 +19,15 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderDao orderDao;
     private final CustomerService customerService;
+    private final OrderMapper mapper;
+    private final OrderValidator validator;
 
     @Override
     public void createOrder(OrderDto orderDto) {
-        if (!customerService.findCustomer(orderDto.getCustomerPhone()).isPresent()) {
-            addNewCustomer(orderDto);
-        }
-        
-    }
+        customerService.createCustomer(orderDto.getCustomerName(), orderDto.getCustomerPhone());
+        Order order = mapper.mapDtoToEntity(orderDto);
+        validator.validate(order);
 
-    private void addNewCustomer(OrderDto orderDto) {
-        CustomerDto customerDto = new CustomerDto();
-        customerDto.setName(orderDto.getCustomerName());
-        customerDto.setPhone(orderDto.getCustomerPhone());
-        customerService.createCustomer(customerDto);
-    }
-    
-    private Order mapDtoToEntity(OrderDto orderDto) {
-        Order order = new Order();
-        return order;
     }
 
     @Override

@@ -28,8 +28,4 @@ public class OrderDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotEmpty
     private String start;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @NotEmpty
-    private String end;
 }

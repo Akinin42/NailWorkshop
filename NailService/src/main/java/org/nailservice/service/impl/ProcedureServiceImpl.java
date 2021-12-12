@@ -35,12 +35,12 @@ public class ProcedureServiceImpl implements ProcedureService {
     }
 
     private Procedure mapDtoToEntity(ProcedureDto procedureDto) {
-        Procedure procedure = new Procedure();
-        procedure.setId(procedureDto.getId());
-        procedure.setName(procedureDto.getName());
-        procedure.setDuration(procedureDto.getDuration());
-        procedure.setCost(procedureDto.getCost());
-        return procedure;
+        return Procedure.builder()
+                .withId(procedureDto.getId())
+                .withName(procedureDto.getName())
+                .withDuration(procedureDto.getDuration())
+                .withCost(procedureDto.getCost())
+                .build();
     }
 
     private boolean existProcedure(Procedure procedure) {

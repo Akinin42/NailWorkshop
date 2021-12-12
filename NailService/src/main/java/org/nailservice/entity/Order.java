@@ -16,11 +16,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Table(name = "orders")
 @Data
+@Builder(setterPrefix = "with")
 public class Order {
 
     @Id
@@ -30,15 +32,18 @@ public class Order {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_customer", referencedColumnName = "customer_id")
-    Customer customer;
+    private Customer customer;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "orders_to_procedures", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "procedure_id"))
-    Set<Procedure> procedures;
+    private Set<Procedure> procedures;
 
     @Column(name = "order_start", columnDefinition = "TIMESTAMP", nullable = false)
-    LocalDateTime start;
+    private LocalDateTime start;
 
     @Column(name = "order_end", columnDefinition = "TIMESTAMP", nullable = false)
-    LocalDateTime end;
+    private LocalDateTime end;
+    
+    @Column(name = "order_amount", nullable = false)
+    private Integer amount;
 }

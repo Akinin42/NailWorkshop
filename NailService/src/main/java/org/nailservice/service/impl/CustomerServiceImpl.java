@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.nailservice.dao.CustomerDao;
-import org.nailservice.dto.CustomerDto;
 import org.nailservice.entity.Customer;
-import org.nailservice.exception.EntityAlreadyExistException;
 import org.nailservice.service.CustomerService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,30 +29,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void createCustomer(CustomerDto customerDto) {
-        Customer customer = mapDtoToEntity(customerDto);
-        if (existCustomer(customer)) {
-            throw new EntityAlreadyExistException("customerexist");
+    public void createCustomer(String name, String phone) {
+        Customer customer = Customer.builder()
+                .withName(name)
+                .withPhone(phone)
+                .build();
+        if (!existCustomer(customer)) {
+            customerDao.save(customer);
         }
-        customerDao.save(customer);
     }
 
     private boolean existCustomer(Customer customer) {
         return !customerDao.findByPhone(customer.getPhone()).equals(Optional.empty());
-    }
-
-    private Customer mapDtoToEntity(CustomerDto customerDto) {
-        Customer customer = new Customer();
-        customer.setId(customerDto.getId());
-        customer.setName(customerDto.getName());
-        customer.setPhone(customerDto.getPhone());
-        return customer;
-    }
-
-    @Override
-    public void editCustomer(CustomerDto customerDto) {
-        Customer customer = mapDtoToEntity(customerDto);
-        customerDao.save(customer);
     }
 
     @Override
