@@ -10,21 +10,21 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "nailservices")
+@Table(name = "procedures")
 @Data
-public class NailOperation {
+public class Procedure {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "nailservice_id", unique = true, nullable = false)
+    @Column(name = "procedure_id", unique = true, nullable = false)
     private Integer id;
     
-    @Column(name = "nailservice_name", nullable = false)
+    @Column(name = "procedure_name", nullable = false)
     private String name;
     
-    @Column(name = "nailservice_cost", nullable = false)
+    @Column(name = "procedure_cost", nullable = false)
     private Integer cost;
     
-    @Column(name = "nailservice_duration", nullable = false)
+    @Column(name = "procedure_duration", nullable = false)
     private Integer duration;
 }

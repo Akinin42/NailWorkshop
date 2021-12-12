@@ -33,8 +33,8 @@ public class Order {
     Customer customer;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "orders_to_nailservices", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "nailservice_id"))
-    Set<NailOperation> nailServices;
+    @JoinTable(name = "orders_to_procedures", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "procedure_id"))
+    Set<Procedure> procedures;
 
     @Column(name = "order_start", columnDefinition = "TIMESTAMP", nullable = false)
     LocalDateTime start;
