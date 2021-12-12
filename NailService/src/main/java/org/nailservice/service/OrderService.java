@@ -7,7 +7,5 @@ public interface OrderService {
  
     void createOrder(OrderDto orderDto);
 
-    void editOrder(OrderDto orderDto);
-
     void deleteById(Integer id);
 }
