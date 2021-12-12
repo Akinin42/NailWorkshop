@@ -26,6 +26,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Optional<Customer> findCustomer(String phone) {
+        return customerDao.findByPhone(phone);
+    }
+
+    @Override
     public void createCustomer(CustomerDto customerDto) {
         Customer customer = mapDtoToEntity(customerDto);
         if (existCustomer(customer)) {
