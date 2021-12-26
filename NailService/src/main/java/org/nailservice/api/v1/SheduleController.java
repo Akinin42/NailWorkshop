@@ -25,8 +25,8 @@ public class SheduleController {
     }
 
     @GetMapping("/date")
-    public Shedule getSheduleOnDay(@RequestParam("localDate") LocalDate date) {
-        return sheduleService.createShedule(date);
+    public Shedule getSheduleOnDay(@RequestParam("date") String date) {
+        return sheduleService.createShedule(LocalDate.parse(date));
     }
 
     @GetMapping("/week")

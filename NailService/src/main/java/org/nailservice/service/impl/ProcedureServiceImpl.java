@@ -7,6 +7,7 @@ import org.nailservice.dao.ProcedureDao;
 import org.nailservice.dto.ProcedureDto;
 import org.nailservice.entity.Procedure;
 import org.nailservice.exception.EntityAlreadyExistException;
+import org.nailservice.exception.EntityNotExistException;
 import org.nailservice.service.ProcedureService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,14 +30,13 @@ public class ProcedureServiceImpl implements ProcedureService {
     public void createProcedure(ProcedureDto procedureDto) {
         Procedure procedure = mapDtoToEntity(procedureDto);
         if (existProcedure(procedure)) {
-            throw new EntityAlreadyExistException("procedure exist");
+            throw new EntityAlreadyExistException("procedure exists");
         }
         procedureDao.save(procedure);
     }
 
     private Procedure mapDtoToEntity(ProcedureDto procedureDto) {
-        return Procedure.builder()
-                .withId(procedureDto.getId())
+        return Procedure.builder().withId(procedureDto.getId())
                 .withName(procedureDto.getName())
                 .withDuration(procedureDto.getDuration())
                 .withCost(procedureDto.getCost())
@@ -50,6 +50,9 @@ public class ProcedureServiceImpl implements ProcedureService {
     @Override
     public void editProcedure(ProcedureDto procedureDto) {
         Procedure procedure = mapDtoToEntity(procedureDto);
+        if (!procedureDao.existsById(procedure.getId())) {
+            throw new EntityNotExistException("procedure not exists");
+        }
         procedureDao.save(procedure);
     }
 

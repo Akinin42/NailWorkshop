@@ -2,6 +2,8 @@ package org.nailservice.api.v1;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.nailservice.dto.ProcedureDto;
 import org.nailservice.entity.Procedure;
 import org.nailservice.service.ProcedureService;
@@ -32,12 +34,12 @@ public class ProcedureController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addProcedure(@RequestBody ProcedureDto procedure) {
+    public void addProcedure(@Valid @RequestBody ProcedureDto procedure) {
         procedureService.createProcedure(procedure);
     }
 
     @PatchMapping
-    public void updateProcedure(@RequestBody ProcedureDto procedure) {
+    public void updateProcedure(@Valid @RequestBody ProcedureDto procedure) {
         procedureService.editProcedure(procedure);
     }
 

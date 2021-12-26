@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.nailservice.exception.EntityAlreadyExistException;
+import org.nailservice.exception.EntityNotExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -39,8 +40,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), e.getStatus());
     }
 
-    @ExceptionHandler(EntityAlreadyExistException.class)
-    public ResponseEntity<String> handleEntityNotExistException(EntityAlreadyExistException e) {
+    @ExceptionHandler({ EntityAlreadyExistException.class, EntityNotExistException.class })
+    public ResponseEntity<String> handleEntityNotExistException(Exception e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

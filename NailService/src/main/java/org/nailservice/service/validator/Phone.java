@@ -16,7 +16,7 @@ import javax.validation.Payload;
 @Documented
 public @interface Phone {
 
-    String message() default "{phone.invalid}";
+    String message() default "Input phone is invalid";
 
     Class<?>[] groups() default {};
 

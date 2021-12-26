@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hamcrest.Matchers;
@@ -18,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.nailservice.GlobalExceptionHandler;
 import org.nailservice.entity.Customer;
 import org.nailservice.service.CustomerService;
+import org.nailservice.utils.CreatorTestEntities;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -46,7 +46,7 @@ class CustomerControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        List<Customer> customers = createTestCustomers();
+        List<Customer> customers = CreatorTestEntities.createTestCustomers();
         when(customerServiceMock.findAllCustomers()).thenReturn(customers);
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/v1/customers")
                 .contentType(MediaType.APPLICATION_JSON);
@@ -67,22 +67,5 @@ class CustomerControllerTest {
         ResultActions result = mockMvc.perform(request);
         result.andExpect(status().isOk());
         verify(customerServiceMock).deleteById(1);
-    }
-
-    private List<Customer> createTestCustomers() {
-        List<Customer> customers = new ArrayList<>();
-        Customer customer = Customer.builder()
-                .withId(1)
-                .withName("First customer")
-                .withPhone("phone first")
-                .build();
-        customers.add(customer);
-        customer = Customer.builder()
-                .withId(2)
-                .withName("Second customer")
-                .withPhone("phone second")
-                .build();
-        customers.add(customer);
-        return customers;
     }
 }
