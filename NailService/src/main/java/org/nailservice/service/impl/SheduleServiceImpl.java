@@ -56,10 +56,10 @@ public class SheduleServiceImpl implements SheduleService {
                     dayOrders.add(order);
                 }
             }
-            if (!dayOrders.isEmpty()) {
+//            if (!day.getDayOfWeek().equals(DayOfWeek.TUESDAY) && !day.getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
                 Shedule dayShedule = new Shedule(day, dayOrders);
                 weekShedule.add(dayShedule);
-            }
+//            }
         }
         return weekShedule;
     }
