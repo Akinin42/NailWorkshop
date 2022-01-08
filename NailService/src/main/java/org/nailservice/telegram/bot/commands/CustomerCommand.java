@@ -4,28 +4,28 @@ import java.util.List;
 
 import org.nailservice.entity.Customer;
 import org.nailservice.service.CustomerService;
-import org.telegram.telegrambots.meta.api.objects.Chat;
-import org.telegram.telegrambots.meta.api.objects.User;
-import org.telegram.telegrambots.meta.bots.AbsSender;
+import org.nailservice.telegram.bot.service.SendBotMessageService;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-public class CustomerCommand extends Command {
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class CustomerCommand implements Command {
 
     private final CustomerService customerService;
-
-    public CustomerCommand(String identifier, String description, CustomerService customerService) {
-        super(identifier, description);
-        this.customerService = customerService;
-    }
+    private final SendBotMessageService sendBotMessageService;
 
     @Override
-    public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-        String userName = (user.getUserName() != null) ? user.getUserName()
-                : String.format("%s %s", user.getLastName(), user.getFirstName());
+    public void execute(Update update) {
+        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), createCustomersText());
+    }
+
+    private String createCustomersText() {
+        StringBuilder customersText = new StringBuilder();
         List<Customer> customers = customerService.findAllCustomers();
-        StringBuilder answerText = new StringBuilder();
         for (Customer customer : customers) {
-            answerText.append(customer.getName()).append(" - ").append(customer.getPhone()).append("\n");
+            customersText.append(customer.getName()).append(" - ").append(customer.getPhone()).append("\n");
         }
-        sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userName, answerText.toString());
+        return customersText.toString();
     }
 }

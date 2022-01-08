@@ -6,28 +6,23 @@ import java.util.List;
 import org.nailservice.entity.Shedule;
 import org.nailservice.service.SheduleService;
 import org.nailservice.telegram.bot.TelegramSheduleFormatter;
-import org.telegram.telegrambots.meta.api.objects.Chat;
-import org.telegram.telegrambots.meta.api.objects.User;
-import org.telegram.telegrambots.meta.bots.AbsSender;
+import org.nailservice.telegram.bot.service.SendBotMessageService;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-public class WeekSheduleAdminCommand extends Command {
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class WeekSheduleAdminCommand implements Command {
 
     private final SheduleService sheduleService;
+    private final SendBotMessageService sendBotMessageService;
     private TelegramSheduleFormatter sheduleFormatter;
 
-    public WeekSheduleAdminCommand(String identifier, String description, SheduleService sheduleService,
-            TelegramSheduleFormatter sheduleFormatter) {
-        super(identifier, description);
-        this.sheduleService = sheduleService;
-        this.sheduleFormatter = sheduleFormatter;
-    }
-
     @Override
-    public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-        String userName = (user.getUserName() != null) ? user.getUserName()
-                : String.format("%s %s", user.getLastName(), user.getFirstName());
+    public void execute(Update update) {
         List<Shedule> weekShedule = sheduleService.createWeekShedule(LocalDate.now());
-        sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userName, createWeekSheduleText(weekShedule));
+        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(),
+                createWeekSheduleText(weekShedule));
     }
 
     private String createWeekSheduleText(List<Shedule> weekShedule) {
