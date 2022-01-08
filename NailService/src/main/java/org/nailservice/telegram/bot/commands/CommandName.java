@@ -5,9 +5,11 @@ public enum CommandName {
     START("/start"),
     CUSTOMERS("/customers"),
     TODAY("/today"),
-    MY_TODAY("/mytoday"),
+    ADMIN_TODAY("/admintoday"),
     WEEK("/week"),
-    MY_WEEK("/myweek");
+    ADMIN_WEEK("/adminweek"),
+    MENU("/menu"),
+    ADMIN_MENU("/adminmenu");
 
     private final String name;
 

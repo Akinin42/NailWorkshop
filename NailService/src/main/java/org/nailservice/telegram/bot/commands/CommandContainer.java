@@ -1,8 +1,10 @@
 package org.nailservice.telegram.bot.commands;
 
+import static org.nailservice.telegram.bot.commands.CommandName.ADMIN_MENU;
+import static org.nailservice.telegram.bot.commands.CommandName.ADMIN_TODAY;
+import static org.nailservice.telegram.bot.commands.CommandName.ADMIN_WEEK;
 import static org.nailservice.telegram.bot.commands.CommandName.CUSTOMERS;
-import static org.nailservice.telegram.bot.commands.CommandName.MY_TODAY;
-import static org.nailservice.telegram.bot.commands.CommandName.MY_WEEK;
+import static org.nailservice.telegram.bot.commands.CommandName.MENU;
 import static org.nailservice.telegram.bot.commands.CommandName.TODAY;
 import static org.nailservice.telegram.bot.commands.CommandName.WEEK;
 
@@ -22,10 +24,12 @@ public class CommandContainer {
         TelegramSheduleFormatter sheduleFormatter = new TelegramSheduleFormatter();
         commandMap = ImmutableMap.<String, Command>builder()
                 .put(CUSTOMERS.getCommandName(), new CustomerCommand(customerService, sendBotMessageService))
-                .put(MY_WEEK.getCommandName(), new WeekSheduleAdminCommand(sheduleService, sendBotMessageService, sheduleFormatter))
+                .put(ADMIN_WEEK.getCommandName(), new WeekSheduleAdminCommand(sheduleService, sendBotMessageService, sheduleFormatter))
                 .put(WEEK.getCommandName(), new WeekSheduleCommand(sheduleService, sendBotMessageService, sheduleFormatter))
                 .put(TODAY.getCommandName(), new DaySheduleCommand(sheduleService, sendBotMessageService, sheduleFormatter))
-                .put(MY_TODAY.getCommandName(), new DaySheduleAdminCommand(sheduleService, sendBotMessageService, sheduleFormatter))
+                .put(ADMIN_TODAY.getCommandName(), new DaySheduleAdminCommand(sheduleService, sendBotMessageService, sheduleFormatter))
+                .put(MENU.getCommandName(), new MenuComand(sendBotMessageService))
+                .put(ADMIN_MENU.getCommandName(), new MenuAdminComand(sendBotMessageService))
                 .build();
         unknownCommand = new UnknownCommand(sendBotMessageService);
     }

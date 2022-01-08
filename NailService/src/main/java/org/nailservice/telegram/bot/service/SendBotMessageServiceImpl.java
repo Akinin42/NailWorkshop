@@ -27,4 +27,13 @@ public class SendBotMessageServiceImpl implements SendBotMessageService {
             log.error(String.format("error for message: %s", message));
         }
     }
+
+    @Override
+    public void sendMessage(SendMessage message) {
+        try {
+            nailWorkshopBot.execute(message);
+        } catch (TelegramApiException e) {
+            log.error(String.format("error for message: %s", message));
+        }        
+    }
 }
