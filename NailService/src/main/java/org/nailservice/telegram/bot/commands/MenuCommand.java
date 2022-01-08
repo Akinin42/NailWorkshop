@@ -22,8 +22,8 @@ public class MenuCommand implements Command {
         sendMessage.enableMarkdown(true);
         sendMessage.setReplyMarkup(createKeyboard());
         sendMessage.setChatId(update.getMessage().getChatId().toString());
-        sendMessage.setText("Добро пожаловать в меню бота Анастасии Лопаренок: "
-                + "вы можете посмотреть все доступные команды введя /help");
+        sendMessage.setText("Добро пожаловать, я бот нэйл-мастера Анастасии Лопаренок, "
+                + "все доступные услуги вы можете получить в меню ниже:");
         sendBotMessageService.sendMessage(sendMessage);
     }
 

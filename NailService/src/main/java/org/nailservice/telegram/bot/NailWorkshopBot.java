@@ -1,12 +1,10 @@
 package org.nailservice.telegram.bot;
 
-import static org.nailservice.telegram.bot.commands.CommandName.ADMIN_MENU;
-import static org.nailservice.telegram.bot.commands.CommandName.MENU;
-
 import org.nailservice.service.CustomerService;
 import org.nailservice.service.ProcedureService;
 import org.nailservice.service.SheduleService;
 import org.nailservice.telegram.bot.commands.CommandContainer;
+import org.nailservice.telegram.bot.commands.CommandName;
 import org.nailservice.telegram.bot.service.SendBotMessageServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -51,9 +49,9 @@ public class NailWorkshopBot extends TelegramLongPollingBot {
                 commandContainer.retrieveCommand(commandIdentifier).execute(update);
             } else {
                 if (update.getMessage().getText().equalsIgnoreCase("это Настя")) {
-                    commandContainer.retrieveCommand(ADMIN_MENU.getCommandName()).execute(update);
+                    commandContainer.retrieveCommand(CommandName.ADMIN_MENU.getCommandName()).execute(update);
                 } else {
-                    commandContainer.retrieveCommand(MENU.getCommandName()).execute(update);
+                    commandContainer.retrieveCommand(CommandName.MENU.getCommandName()).execute(update);
                 }
             }
         } else if (update.hasCallbackQuery()) {
