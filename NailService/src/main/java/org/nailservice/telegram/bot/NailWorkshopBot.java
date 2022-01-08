@@ -4,6 +4,7 @@ import static org.nailservice.telegram.bot.commands.CommandName.ADMIN_MENU;
 import static org.nailservice.telegram.bot.commands.CommandName.MENU;
 
 import org.nailservice.service.CustomerService;
+import org.nailservice.service.ProcedureService;
 import org.nailservice.service.SheduleService;
 import org.nailservice.telegram.bot.commands.CommandContainer;
 import org.nailservice.telegram.bot.service.SendBotMessageServiceImpl;
@@ -25,9 +26,10 @@ public class NailWorkshopBot extends TelegramLongPollingBot {
 
     private final CommandContainer commandContainer;
 
-    public NailWorkshopBot(CustomerService customerService, SheduleService sheduleService) {
+    public NailWorkshopBot(CustomerService customerService, SheduleService sheduleService,
+            ProcedureService procedureService) {
         this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), customerService,
-                sheduleService);
+                sheduleService, procedureService);
     }
 
     @Override
@@ -48,19 +50,19 @@ public class NailWorkshopBot extends TelegramLongPollingBot {
                 String commandIdentifier = message.split(" ")[0].toLowerCase();
                 commandContainer.retrieveCommand(commandIdentifier).execute(update);
             } else {
-                if(update.getMessage().getText().equalsIgnoreCase("это Настя")) {
+                if (update.getMessage().getText().equalsIgnoreCase("это Настя")) {
                     commandContainer.retrieveCommand(ADMIN_MENU.getCommandName()).execute(update);
                 } else {
                     commandContainer.retrieveCommand(MENU.getCommandName()).execute(update);
-                }                
+                }
             }
-        } else if (update.hasCallbackQuery()) {           
+        } else if (update.hasCallbackQuery()) {
             String message = update.getCallbackQuery().getData();
             String commandIdentifier = message.split(" ")[0].toLowerCase();
             commandContainer.retrieveCommand(commandIdentifier).execute(addMessageToUpdate(update));
         }
     }
-    
+
     private Update addMessageToUpdate(Update update) {
         update.setMessage(update.getCallbackQuery().getMessage());
         return update;

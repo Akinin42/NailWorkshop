@@ -9,7 +9,10 @@ public enum CommandName {
     WEEK("/week"),
     ADMIN_WEEK("/adminweek"),
     MENU("/menu"),
-    ADMIN_MENU("/adminmenu");
+    ADMIN_MENU("/adminmenu"),
+    MONTH("/month"),
+    ADMIN_MONTH("/adminmonth"),
+    PRICE("/price");
 
     private final String name;
 

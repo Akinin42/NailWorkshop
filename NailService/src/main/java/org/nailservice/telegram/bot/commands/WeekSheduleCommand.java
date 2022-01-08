@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.nailservice.entity.Shedule;
 import org.nailservice.service.SheduleService;
-import org.nailservice.telegram.bot.TelegramSheduleFormatter;
 import org.nailservice.telegram.bot.service.SendBotMessageService;
+import org.nailservice.telegram.bot.service.TelegramSheduleFormatter;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import lombok.AllArgsConstructor;

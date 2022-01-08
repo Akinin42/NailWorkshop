@@ -12,7 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class WeekSheduleAdminCommand implements Command {
+public class MonthSheduleCommand implements Command {
 
     private final SheduleService sheduleService;
     private final SendBotMessageService sendBotMessageService;
@@ -20,16 +20,16 @@ public class WeekSheduleAdminCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        List<Shedule> weekShedule = sheduleService.createWeekShedule(LocalDate.now());
+        List<Shedule> monthShedule = sheduleService.createMonthShedule(LocalDate.now());
         sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(),
-                createWeekSheduleText(weekShedule));
+                createMonthSheduleText(monthShedule));
     }
 
-    private String createWeekSheduleText(List<Shedule> weekShedule) {
-        StringBuilder weekSheduleText = new StringBuilder();
-        for (Shedule shedule : weekShedule) {
-            weekSheduleText.append(sheduleFormatter.createSheduleTextForAdmin(shedule)).append("\n");
+    private String createMonthSheduleText(List<Shedule> monthShedule) {
+        StringBuilder sheduleText = new StringBuilder();
+        for (Shedule shedule : monthShedule) {
+            sheduleText.append(sheduleFormatter.createSheduleTextForCustomer(shedule)).append("\n");
         }
-        return weekSheduleText.toString();
+        return sheduleText.toString();
     }
 }

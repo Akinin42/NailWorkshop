@@ -1,4 +1,4 @@
-package org.nailservice.telegram.bot;
+package org.nailservice.telegram.bot.service;
 
 import java.util.List;
 

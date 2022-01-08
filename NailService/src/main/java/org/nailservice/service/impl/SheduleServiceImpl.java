@@ -1,5 +1,6 @@
 package org.nailservice.service.impl;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -56,10 +57,10 @@ public class SheduleServiceImpl implements SheduleService {
                     dayOrders.add(order);
                 }
             }
-//            if (!day.getDayOfWeek().equals(DayOfWeek.TUESDAY) && !day.getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
+            if (checkDayOff(day.getDayOfWeek())) {
                 Shedule dayShedule = new Shedule(day, dayOrders);
                 weekShedule.add(dayShedule);
-//            }
+            }
         }
         return weekShedule;
     }
@@ -75,11 +76,15 @@ public class SheduleServiceImpl implements SheduleService {
                     dayOrders.add(order);
                 }
             }
-            if (!dayOrders.isEmpty()) {
+            if (checkDayOff(day.getDayOfWeek())) {
                 Shedule dayShedule = new Shedule(day, dayOrders);
                 monthShedule.add(dayShedule);
             }
         }
         return monthShedule;
+    }
+    
+    private Boolean checkDayOff(DayOfWeek day) {
+        return !day.equals(DayOfWeek.TUESDAY) && !day.equals(DayOfWeek.FRIDAY);
     }
 }
