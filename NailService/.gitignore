@@ -1,11 +1,7 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-.apt_generated
+/target/
 .classpath
+.gitignore
 .project
 .settings
 .springBeans
-.gitignore
-.mvnw.cmd
-.mvnw
+.mvn
