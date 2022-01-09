@@ -3,17 +3,14 @@ package org.nailservice.telegram.bot.commands;
 public enum CommandName {
     
     START("/start"),
-    CUSTOMERS("/customers"),
-    TODAY("/today"),
-    ADMIN_TODAY("/admintoday"),
-    WEEK("/week"),
-    ADMIN_WEEK("/adminweek"),
+    CUSTOMERS("/customers"),    
+    DAY("/day"),
+    ADMIN_DAY("/adminday"),
     MENU("/menu"),
     ADMIN_MENU("/adminmenu"),
-    MONTH("/month"),
-    ADMIN_MONTH("/adminmonth"),
     PRICE("/price"),
-    CALENDAR("/calendar");
+    CALENDAR("/calendar"),
+    ADMIN_CALENDAR("/admincalendar");
 
     private final String name;
 

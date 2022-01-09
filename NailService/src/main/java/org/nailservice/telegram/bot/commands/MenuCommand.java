@@ -30,9 +30,8 @@ public class MenuCommand implements Command {
     private InlineKeyboardMarkup createKeyboard() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
-        rowList.add(createButtonsRow(createButton("Расписание на сегодня", "/today")));
-        rowList.add(createButtonsRow(createButton("Расписание на неделю", "/week")));
-        rowList.add(createButtonsRow(createButton("Расписание на месяц", "/month")));
+        rowList.add(createButtonsRow(createButton("Расписание на сегодня", "/day")));
+        rowList.add(createButtonsRow(createButton("Расписание на месяц", "/calendar")));
         rowList.add(createButtonsRow(createButton("Прайс-лист", "/price")));
         inlineKeyboardMarkup.setKeyboard(rowList);
         return inlineKeyboardMarkup;

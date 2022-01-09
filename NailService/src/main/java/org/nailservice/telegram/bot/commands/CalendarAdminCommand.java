@@ -17,7 +17,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CalendarCommand implements Command {
+public class CalendarAdminCommand implements Command {
 
     private final SendBotMessageService sendBotMessageService;
 
@@ -87,7 +87,7 @@ public class CalendarCommand implements Command {
             } else {
                 LocalDate day = LocalDate.of(date.getYear(), date.getMonth(), firstRowNumber + i - position);
                 daysRow.add(createButton(Integer.toString(firstRowNumber + i - position),
-                        String.format("/day %s", day.toString())));
+                        String.format("/adminday %s", day.toString())));
             }
         }
         return daysRow;
@@ -101,8 +101,8 @@ public class CalendarCommand implements Command {
         List<InlineKeyboardButton> switchRow = new ArrayList<>();
         String lastMonth = date.getMonth().minus(1).toString();
         String nextMonth = date.getMonth().plus(1).toString();
-        switchRow.add(createButton(lastMonth, String.format("/calendar %s", lastMonth)));
-        switchRow.add(createButton(nextMonth, String.format("/calendar %s", nextMonth)));
+        switchRow.add(createButton(lastMonth, String.format("/admincalendar %s", lastMonth)));
+        switchRow.add(createButton(nextMonth, String.format("/admincalendar %s", nextMonth)));
         return switchRow;
     }
 

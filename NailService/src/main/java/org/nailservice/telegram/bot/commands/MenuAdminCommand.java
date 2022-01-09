@@ -29,9 +29,8 @@ public class MenuAdminCommand implements Command {
     private InlineKeyboardMarkup createKeyboard() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
-        rowList.add(createButtonsRow(createButton("Расписание на сегодня", "/admintoday")));
-        rowList.add(createButtonsRow(createButton("Расписание на неделю", "/adminweek")));
-        rowList.add(createButtonsRow(createButton("Расписание на месяц", "/adminmonth")));
+        rowList.add(createButtonsRow(createButton("Расписание на сегодня", "/adminday")));
+        rowList.add(createButtonsRow(createButton("Расписание на месяц", "/admincalendar")));
         rowList.add(createButtonsRow(createButton("Клиенты", "/customers")));
         inlineKeyboardMarkup.setKeyboard(rowList);
         return inlineKeyboardMarkup;

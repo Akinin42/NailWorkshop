@@ -1,46 +1,46 @@
 package org.nailservice.telegram.bot.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.nailservice.entity.Order;
 import org.nailservice.entity.Shedule;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TelegramSheduleFormatter {
+public class TelegramSheduleCreator {
 
-    public String createSheduleTextForCustomer(Shedule shedule) {
+    public Map<String, String> createSheduleTextForCustomer(Shedule shedule) {
         if (shedule.getOrders().isEmpty()) {
             return createFreeShedule(shedule);
         }
         return createShedule(shedule, false);
     }
 
-    public String createSheduleTextForAdmin(Shedule shedule) {
+    public Map<String, String> createSheduleTextForAdmin(Shedule shedule) {
         if (shedule.getOrders().isEmpty()) {
             return createFreeShedule(shedule);
         }
         return createShedule(shedule, true);
     }
 
-    private String createFreeShedule(Shedule shedule) {
-        StringBuilder sheduleText = new StringBuilder();
-        sheduleText.append(shedule.getDay().toString()).append("\n");
-        sheduleText.append(createFreeLine(10));
-        sheduleText.append(createFreeLine(12));
-        sheduleText.append(createFreeLine(14));
-        sheduleText.append(createFreeLine(17));
-        return sheduleText.toString();
+    private Map<String, String> createFreeShedule(Shedule shedule) {
+        Map<String, String> orders = new TreeMap<>();
+        orders.put(createFreeLine(10), "/order");
+        orders.put(createFreeLine(12), "/order");
+        orders.put(createFreeLine(14), "/order");
+        orders.put(createFreeLine(17), "/order");
+        return orders;
     }
 
-    private String createShedule(Shedule shedule, Boolean admin) {
-        StringBuilder sheduleText = new StringBuilder();
-        sheduleText.append(shedule.getDay().toString()).append("\n");
-        sheduleText.append(createSheduleLine(shedule, 9, 11, admin));
-        sheduleText.append(createSheduleLine(shedule, 11, 13, admin));
-        sheduleText.append(createSheduleLine(shedule, 13, 15, admin));
-        sheduleText.append(createSheduleLine(shedule, 16, 19, admin));
-        return sheduleText.toString();
+    private Map<String, String> createShedule(Shedule shedule, Boolean admin) {
+        Map<String, String> orders = new TreeMap<>();        
+        orders.put(createSheduleLine(shedule, 9, 11, admin), "/order");
+        orders.put(createSheduleLine(shedule, 11, 13, admin), "/order");
+        orders.put(createSheduleLine(shedule, 13, 15, admin), "/order");
+        orders.put(createSheduleLine(shedule, 16, 19, admin), "/order");
+        return orders;
     }
 
     private String createSheduleLine(Shedule shedule, int startLine, int endLine, Boolean admin) {
@@ -60,10 +60,10 @@ public class TelegramSheduleFormatter {
     }
 
     private String createFreeLine(int time) {
-        return String.format("%s-00 свободно%n", time);
+        return String.format("%s-00 свободно", time);
     }
 
     private String createBusyLine(String time, String name) {
-        return String.format("%s %s%n", time, name);
+        return String.format("%s %s", time, name);
     }
 }
