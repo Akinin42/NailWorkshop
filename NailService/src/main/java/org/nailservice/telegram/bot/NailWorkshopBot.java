@@ -9,6 +9,7 @@ import org.nailservice.telegram.bot.service.SendBotMessageServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
@@ -62,7 +63,9 @@ public class NailWorkshopBot extends TelegramLongPollingBot {
     }
 
     private Update addMessageToUpdate(Update update) {
-        update.setMessage(update.getCallbackQuery().getMessage());
+        Message message = update.getCallbackQuery().getMessage();
+        message.setText(update.getCallbackQuery().getData());
+        update.setMessage(message);
         return update;
     }
 }
