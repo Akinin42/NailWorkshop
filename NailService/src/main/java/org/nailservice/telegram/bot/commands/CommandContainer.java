@@ -18,7 +18,8 @@ public class CommandContainer {
         TelegramSheduleFormatter sheduleFormatter = new TelegramSheduleFormatter();
         commandMap = ImmutableMap.<String, Command>builder()
                 .put(CommandName.START.getCommandName(), new MenuCommand(sendBotMessageService))
-                .put(CommandName.CUSTOMERS.getCommandName(), new CustomerCommand(customerService, sendBotMessageService))
+                .put(CommandName.CUSTOMERS.getCommandName(),
+                        new CustomerCommand(customerService, sendBotMessageService))
                 .put(CommandName.TODAY.getCommandName(),
                         new DaySheduleCommand(sheduleService, sendBotMessageService, sheduleFormatter))
                 .put(CommandName.WEEK.getCommandName(),
@@ -33,7 +34,8 @@ public class CommandContainer {
                         new MonthSheduleAdminCommand(sheduleService, sendBotMessageService, sheduleFormatter))
                 .put(CommandName.MENU.getCommandName(), new MenuCommand(sendBotMessageService))
                 .put(CommandName.ADMIN_MENU.getCommandName(), new MenuAdminCommand(sendBotMessageService))
-                .put(CommandName.PRICE.getCommandName(), new PriceCommand(procedureService, sendBotMessageService)).build();
+                .put(CommandName.PRICE.getCommandName(), new PriceCommand(procedureService, sendBotMessageService))
+                .put(CommandName.CALENDAR.getCommandName(), new CalendarCommand(sendBotMessageService)).build();
         unknownCommand = new UnknownCommand(sendBotMessageService);
     }
 

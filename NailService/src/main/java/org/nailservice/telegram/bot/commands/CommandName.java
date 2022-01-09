@@ -12,7 +12,8 @@ public enum CommandName {
     ADMIN_MENU("/adminmenu"),
     MONTH("/month"),
     ADMIN_MONTH("/adminmonth"),
-    PRICE("/price");
+    PRICE("/price"),
+    CALENDAR("/calendar");
 
     private final String name;
 
